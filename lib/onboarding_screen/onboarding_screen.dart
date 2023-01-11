@@ -1,8 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:trav_guard_partners/onboarding_screen/first_screen.dart';
 import 'package:trav_guard_partners/onboarding_screen/second_screen.dart';
 import 'package:trav_guard_partners/onboarding_screen/third_screen.dart';
+
+import '../authenticate/signup.dart';
 
 class OnBoardingScreen extends StatefulWidget {
   const OnBoardingScreen({super.key});
@@ -14,14 +18,14 @@ class OnBoardingScreen extends StatefulWidget {
 class _OnBoardingScreenState extends State<OnBoardingScreen> {
   @override
   Widget build(BuildContext context) {
-    PageController controller = PageController();
+    final PageController pageController = PageController();
+      int pageIndex;
     List<Widget> pages = [
       const FirstScreen(),
       const SecondScreen(),
       const ThirdScreen(),
-    
     ];
-    int index = 0;
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -43,11 +47,11 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                 top: MediaQuery.of(context).size.height * 0.08,
               ),
               child: PageView(
-                controller: controller,
+                controller: pageController,
                 children: pages,
-                onPageChanged: (value) {
+                onPageChanged: (index) {
                   setState(() {
-                    index = value;
+                    pageIndex = index;
                   });
                 },
               ),
@@ -58,12 +62,26 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
               ),
               child: Row(
                 children: [
-                  const Icon(Icons.more_horiz),
+                  SmoothPageIndicator(
+                    controller: pageController,
+                    count: pages.length,
+                    effect: const SwapEffect(
+                        dotHeight: 8.0,
+                        dotWidth: 8.0,
+                        activeDotColor: Color.fromARGB(204, 0, 1, 3)),
+                  ),
                   const Expanded(child: SizedBox()),
                   GestureDetector(
-                    onTap: (() {
-                     
-                    }),
+                    onTap:
+                        // pageIndex != 2
+
+                        //     ? () {
+                        //         _pageController.animateToPage(pageIndex + 1,
+                        //             duration: const Duration(milliseconds: 200),
+                        //             curve: Curves.ease);
+                        //       }
+                        //     :
+                        (() => Get.to(() => const SignUpPage())),
                     child: Container(
                       height: MediaQuery.of(context).size.height * 0.08,
                       width: MediaQuery.of(context).size.width * 0.18,
