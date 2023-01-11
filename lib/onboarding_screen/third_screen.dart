@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class ThirdScreen extends StatelessWidget {
   const ThirdScreen({super.key});
@@ -10,8 +11,8 @@ class ThirdScreen extends StatelessWidget {
       children: [
         Container(
           height: MediaQuery.of(context).size.height * 0.5,
-          decoration: BoxDecoration(
-              color: Colors.grey, borderRadius: BorderRadius.circular(20)),
+          decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
+          child: SvgPicture.asset('assets/images/3.svg'),
         ),
         const SizedBox(
           height: 10,
